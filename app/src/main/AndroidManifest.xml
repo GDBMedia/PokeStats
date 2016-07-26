@@ -15,8 +15,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PokemonListActivity" />
-        <activity android:name=".PokemonGradingPageActivity"></activity>
+        <activity android:name=".PokemonListActivity">
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.epicodus.pokestats.MainActivity"/>
+        </activity>
+
+        <activity android:name=".PokemonGradingPageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.epicodus.pokestats.MainActivity"/>
+
+        </activity>
     </application>
 
 </manifest>
