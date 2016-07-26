@@ -153,6 +153,15 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                                     // Get user value
                                     currentUser[0] = dataSnapshot.getValue(User.class);
 
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(currentUser[0]);
+                                    mEditor.putString("currentUser", json).apply();
+                                    Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+
                                     // ...
                                 }
 
@@ -163,14 +172,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                             });
 
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(currentUser[0]);
-                    mEditor.putString("currentUser", json).apply();
-                    Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
                 }
             }
 
