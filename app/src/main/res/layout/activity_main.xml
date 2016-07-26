@@ -35,7 +35,7 @@
     <TextView
         android:text="You have @ out of @ Pokemon"
         android:id="@+id/totalPokemon"
-        android:layout_above="@+id/pokeList"
+        android:layout_above="@+id/pokemonListButton"
         android:layout_marginBottom="45dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
 
     <Button
         android:text="Check Your Pokemon"
-        android:id="@+id/pokeList"
+        android:id="@+id/pokemonListButton"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
