@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:id="@+id/imageView"
-        android:src="@drawable/teaminstinct"
+        android:src="@drawable/instinct"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -35,7 +35,7 @@
     <TextView
         android:text="You have @ out of @ Pokemon"
         android:id="@+id/totalPokemon"
-        android:layout_above="@+id/pokeList"
+        android:layout_above="@+id/pokemonListButton"
         android:layout_marginBottom="45dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -44,11 +44,11 @@
 
     <Button
         android:text="Check Your Pokemon"
-        android:id="@+id/pokeList"
+        android:id="@+id/pokemonListButton"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/colorAccent"
+        android:background="@color/accent"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
