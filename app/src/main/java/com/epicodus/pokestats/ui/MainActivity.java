@@ -1,26 +1,22 @@
 package com.epicodus.pokestats.ui;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
-import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.models.User;
 import com.epicodus.pokestats.services.PokemonApiService;
 import com.google.gson.Gson;
-import com.scottyab.aescrypt.AESCrypt;
 
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-
-import javax.crypto.SecretKey;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,7 +24,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public final String TAG = this.getClass().getSimpleName();
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -36,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private User mUser;
     private ProgressDialog mAuthProgressDialog;
     @Bind(R.id.teamImage) ImageView mTeamImage;
+    @Bind(R.id.pokemonListButton) ImageView mPokemonListButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
+        mPokemonListButton.setOnClickListener(this);
         Gson gson = new Gson();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private void getUser() {
         mAuthProgressDialog.show();
         final PokemonApiService pokemonApiService = new PokemonApiService();
-        pokemonApiService.getUser(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), "portland", new Callback() {
+        pokemonApiService.getData(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), "portland", 0, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -103,4 +101,9 @@ public class MainActivity extends AppCompatActivity {
         mAuthProgressDialog.setCancelable(false);
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, PokemonListActivity.class);
+        startActivity(intent);
+    }
 }

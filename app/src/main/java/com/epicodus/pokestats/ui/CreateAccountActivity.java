@@ -158,7 +158,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
-                                    Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                                    Log.w(TAG, "getData:onCancelled", databaseError.toException());
                                 }
                             });
 
