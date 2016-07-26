@@ -72,10 +72,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mAuthProgressDialog.show();
+
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 final User[] currentUser = {null};
                 if (user != null) {
+                    mAuthProgressDialog.show();
                     mDatabase.child("users").child(user.getUid()).addListenerForSingleValueEvent(
                             new ValueEventListener() {
                                 @Override
@@ -97,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
-                                    Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                                    Log.w(TAG, "getData:onCancelled", databaseError.toException());
                                 }
                             });
 

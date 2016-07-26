@@ -24,7 +24,12 @@ import okhttp3.Response;
  * Created by Guest on 7/26/16.
  */
 public class PokemonApiService {
-    public static void getUser(String emailEn, String passwordEn, String location, Callback callback){
+
+
+
+
+
+    public static void getData(String emailEn, String passwordEn, String location, int type, Callback callback){
         String email = "";
         try {
             email = AESCrypt.decrypt(Constants.EMAILKEY, emailEn);
@@ -40,8 +45,14 @@ public class PokemonApiService {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
+        HttpUrl.Builder urlBuilder;
+        if(type == 0){
+            urlBuilder = HttpUrl.parse(Constants.GETUSER_URL).newBuilder();
+        }else{
+            urlBuilder = HttpUrl.parse(Constants.GETPOKEMON_URL).newBuilder();
+        }
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.GETUSER_URL).newBuilder();
+
         urlBuilder.addQueryParameter(Constants.USERNAME_PARAM,  email)
                 .addQueryParameter(Constants.PASSWORD_PARAM, password)
                 .addQueryParameter(Constants.LOCATION_PARAM, location);
