@@ -6,6 +6,8 @@ package com.epicodus.pokestats.models;
 public class User {
 
 
+
+
     public String team;
     public String username;
     public String googleUser;
@@ -40,6 +42,10 @@ public class User {
     public int hyp_potion_count;
     public int egg_count;
     public int pokemon_count;
+    public User(String googleUser, String googlePassword) {
+        this.googleUser = googleUser;
+        this.googlePassword = googlePassword;
+    }
 
     public User(String team, String username, int pokecoin,
                 int stardust, int max_item, int creation_time, int max_pokemon, int revive_count, int razz_count,

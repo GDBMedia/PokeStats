@@ -110,8 +110,7 @@ public class PokemonApiService {
                 int egg_count = userJSON.optInt("egg_count", 0);
                 int pokemon_count = userJSON.optInt("pokemon_count", 0);
 
-                user = new User(team, username, pokecoin,
-                        stardust, max_item, creation_time, max_pokemon, revive_count, razz_count,
+                user = new User(team, username, pokecoin, stardust, max_item, creation_time, max_pokemon, revive_count, razz_count,
                         pokemons_encountered, pokemon_deployed, battle_attack_total, next_level_xp, battle_attack_won,
                         prestige_raised_total, pokeballs_thrown, eggs_hatched, prestige_dropped_total, prev_level_xp,
                         unique_pokedex_entries, km_walked, level, experience, poke_stop_visits, evolutions, pokeball_count,
