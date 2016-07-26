@@ -73,8 +73,8 @@ public class PokemonApiService {
             if (response.isSuccessful()) {
                 JSONObject userJSON = new JSONObject(jsonData);
                 String username = userJSON.getString("username");
-                int pokecoin = userJSON.getInt("pokecoin");
-                int stardust = userJSON.getInt("stardust");
+                int pokecoin = userJSON.optInt("pokecoin", 0);
+                int stardust = userJSON.optInt("stardust", 0);
                 int max_item = userJSON.getInt("max_item");
                 int creation_time = userJSON.getInt("creation_time");
                 int teamnum = userJSON.optInt("team", 100);

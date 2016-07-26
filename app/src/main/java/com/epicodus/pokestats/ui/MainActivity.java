@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String json = mSharedPreferences.getString("currentUser", null);
         mCurrentUser = gson.fromJson(json, User.class);
 
+
         getUser();
 
     }
