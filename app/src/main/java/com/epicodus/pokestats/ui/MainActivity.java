@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.epicodus.pokestats.R;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private User mUser;
     private ProgressDialog mAuthProgressDialog;
     @Bind(R.id.teamImage) ImageView mTeamImage;
-    @Bind(R.id.pokemonListButton) ImageView mPokemonListButton;
+    @Bind(R.id.pokemonListButton) Button mPokemonListButton;
 
 
     @Override
