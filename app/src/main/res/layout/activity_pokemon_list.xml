@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.epicodus.pokestats.PokemonListActivity">
+    tools:context=".ui.PokemonListActivity">
 
     <!--<android.support.v7.widget.RecyclerView-->
         <!--android:layout_width="match_parent"-->
