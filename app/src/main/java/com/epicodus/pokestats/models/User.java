@@ -1,8 +1,18 @@
 package com.epicodus.pokestats.models;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import org.parceler.Parcel;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Guest on 7/26/16.
  */
+@IgnoreExtraProperties
+@Parcel
 public class User {
 
 
@@ -42,6 +52,10 @@ public class User {
     public int hyp_potion_count;
     public int egg_count;
     public int pokemon_count;
+
+    public User() {
+    }
+
     public User(String googleUser, String googlePassword) {
         this.googleUser = googleUser;
         this.googlePassword = googlePassword;
@@ -221,6 +235,15 @@ public class User {
 
     public int getPokemon_count() {
         return pokemon_count;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("googleUser", googleUser);
+        result.put("googlePassword", googlePassword);
+
+        return result;
     }
 
 
