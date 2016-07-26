@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 
-import com.epicodus.pokestats.PokemonListActivity;
 import com.epicodus.pokestats.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
