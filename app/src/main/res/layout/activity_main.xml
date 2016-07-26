@@ -8,9 +8,8 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/instinct"
+        android:layout_height="200dp"
+        android:id="@+id/teamImage"
         android:scaleType="centerCrop" />
 
     <TextView

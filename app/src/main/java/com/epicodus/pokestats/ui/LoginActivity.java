@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                mAuthProgressDialog.show();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 final User[] currentUser = {null};
                 if (user != null) {
@@ -81,6 +82,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     // Get user value
                                     currentUser[0] = dataSnapshot.getValue(User.class);
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(currentUser[0]);
+                                    mEditor.putString("currentUser", json).apply();
+
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    mAuthProgressDialog.dismiss();
+                                    startActivity(intent);
+                                    finish();
 
                                     // ...
                                 }
@@ -91,14 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             });
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(currentUser[0]);
-                    mEditor.putString("currentUser", json).apply();
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
                 }
             }
         };
