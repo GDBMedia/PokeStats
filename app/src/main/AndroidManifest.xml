@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:configChanges="orientation|screenSize">
+
 
         </activity>
 
@@ -21,7 +23,8 @@
         </intent-filter>
         </activity>
         <activity android:name=".ui.CreateAccountActivity"></activity>
-        <activity android:name=".ui.PokemonListActivity">
+        <activity android:name=".ui.PokemonListActivity"
+            android:configChanges="orientation|screenSize">
                 <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.epicodus.pokestats.ui.MainActivity"/>

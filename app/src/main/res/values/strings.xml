@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PokeStats</string>
+    <string name="check_your_pokemon">Check Your Pokemon</string>
 </resources>

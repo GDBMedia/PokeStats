@@ -1,6 +1,7 @@
 package com.epicodus.pokestats.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.models.Pokemon;
+import com.epicodus.pokestats.ui.PokemonGradingPageActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -78,12 +82,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
 
         @Override
         public void onClick(View v) {
-//            int itemPosition = getLayoutPosition();
-//            Intent intent = new Intent(v.getContext(), UpdateDmv.class);
-//            intent.putExtra("position", itemPosition + "");
-//            intent.putExtra("dmvs", Parcels.wrap(mPokemonArrayList));
-//            intent.putExtra("origin", mOrigin);
-//            mContext.startActivity(intent);
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(v.getContext(), PokemonGradingPageActivity.class);
+            intent.putExtra("position", itemPosition + "");
+            intent.putExtra("pokemons", Parcels.wrap(mPokemonArrayList));
+
+            mContext.startActivity(intent);
         }
     }
 }

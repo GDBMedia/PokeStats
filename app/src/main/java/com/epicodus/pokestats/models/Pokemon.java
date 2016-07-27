@@ -1,8 +1,11 @@
 package com.epicodus.pokestats.models;
 
+import org.parceler.Parcel;
+
 /**
  * Created by Guest on 7/26/16.
  */
+@Parcel
 public class Pokemon {
 
     public int pokeball;

@@ -12,37 +12,15 @@
         android:id="@+id/teamImage"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:text="Your Level"
-        android:id="@+id/lvlId"
-        android:layout_marginBottom="45dp"
-        android:layout_above="@+id/currentXp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-    <TextView
-        android:text="Your Current Xp"
-        android:id="@+id/currentXp"
-        android:layout_marginBottom="45dp"
-        android:layout_above="@+id/totalPokemon"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="You have @ out of @ Pokemon"
-        android:id="@+id/totalPokemon"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/stats"
         android:layout_above="@+id/pokemonListButton"
-        android:layout_marginBottom="45dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_below="@+id/teamImage"/>
 
     <Button
-        android:text="Check Your Pokemon"
+        android:text="@string/check_your_pokemon"
         android:id="@+id/pokemonListButton"
         android:background="@color/accent"
         android:layout_alignParentBottom="true"

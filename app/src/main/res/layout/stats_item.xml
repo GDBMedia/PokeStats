@@ -17,29 +17,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cp"
-            android:textColor="@color/accent"
-            android:textSize="20sp"
+            android:id="@+id/statname"
+            android:textSize="18sp"
             android:layout_centerHorizontal="true"
             android:padding="8dp"
             android:textStyle="bold"
+            android:layout_alignParentTop="true"
             />
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:id="@+id/sprite"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/cp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:id="@+id/name"
-            android:layout_below="@+id/sprite"
-            android:textSize="15sp"
+            android:id="@+id/stat"
+            android:textColor="@color/accent"
+            android:layout_below="@+id/statname"
+            android:layout_alignParentBottom="true"
+            android:textSize="30sp"
             android:padding="8dp"
             />
 

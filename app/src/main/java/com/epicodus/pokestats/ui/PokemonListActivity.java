@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.epicodus.pokestats.R;
+import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
 import com.epicodus.pokestats.adapters.PokemonListAdapter;
 import com.epicodus.pokestats.models.Pokemon;
 import com.epicodus.pokestats.models.User;
@@ -34,8 +36,7 @@ public class PokemonListActivity extends AppCompatActivity {
     private ProgressDialog mAuthProgressDialog;
     private PokemonListAdapter mAdapter;
 
-    @Bind(R.id.allPokemonlistView)
-    RecyclerView mRecyclerview;
+    @Bind(R.id.allPokemonlistView) RecyclerView mRecyclerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,8 @@ public class PokemonListActivity extends AppCompatActivity {
                         mRecyclerview.setHasFixedSize(true);
                         mRecyclerview.setLayoutManager(new GridLayoutManager(PokemonListActivity.this, 2));
                         mAdapter = new PokemonListAdapter(PokemonListActivity.this, mPokemons);
+                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(PokemonListActivity.this, R.dimen.activity_horizontal_margin);
+                        mRecyclerview.addItemDecoration(itemDecoration);
                         mRecyclerview.setAdapter(mAdapter);
 
                         mAuthProgressDialog.dismiss();
@@ -92,5 +95,16 @@ public class PokemonListActivity extends AppCompatActivity {
         mAuthProgressDialog.setTitle("Loading...");
         mAuthProgressDialog.setMessage("Getting Pokemon Data... Please Don't Sue still...");
         mAuthProgressDialog.setCancelable(false);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
