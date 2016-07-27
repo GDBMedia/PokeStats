@@ -20,6 +20,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,6 +71,11 @@ public class PokemonListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response){
                 mPokemons = pokemonApiService.processPokemon(response);
+                Collections.sort(mPokemons, new Comparator<Pokemon>() {
+                    @Override public int compare(Pokemon p1, Pokemon p2) {
+                        return (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+                    }
+                });
                 PokemonListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

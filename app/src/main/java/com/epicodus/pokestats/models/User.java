@@ -41,7 +41,7 @@ public class User {
     public int prestige_dropped_total;
     public int prev_level_xp;
     public int unique_pokedex_entries;
-    public int km_walked;
+    public double km_walked;
     public int level;
     public int experience;
     public int poke_stop_visits;
@@ -70,7 +70,7 @@ public class User {
                 int stardust, int max_item, int creation_time, int max_pokemon, int revive_count, int razz_count,
                 int pokemons_encountered, int pokemon_deployed, int battle_attack_total, int next_level_xp, int battle_attack_won,
                 int prestige_raised_total, int pokeballs_thrown, int eggs_hatched, int prestige_dropped_total, int prev_level_xp,
-                int unique_pokedex_entries, int km_walked, int level, int experience, int poke_stop_visits, int evolutions, int pokeball_count,
+                int unique_pokedex_entries, double km_walked, int level, int experience, int poke_stop_visits, int evolutions, int pokeball_count,
                 int greatball_count, int potion_count, int sup_potion_count, int hyp_potion_count, int egg_count, int pokemon_count,
                 int pokemons_captured, int ultraball_count, int masterball_count) {
         this.team = team;
@@ -198,7 +198,7 @@ public class User {
         return unique_pokedex_entries;
     }
 
-    public int getKm_walked() {
+    public double getKm_walked() {
         return km_walked;
     }
 

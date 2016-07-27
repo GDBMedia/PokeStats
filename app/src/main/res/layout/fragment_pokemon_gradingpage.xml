@@ -38,6 +38,8 @@
         android:padding="8dp"
         />
     <ProgressBar
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:id="@+id/progressBar"
@@ -50,6 +52,7 @@
         android:progress="20"/>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/stats"

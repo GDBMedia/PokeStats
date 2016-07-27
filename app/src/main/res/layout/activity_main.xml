@@ -12,12 +12,28 @@
         android:id="@+id/teamImage"
         android:scaleType="centerCrop" />
 
+    <ProgressBar
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/progressBar"
+        android:layout_below="@+id/teamImage"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:visibility="invisible"
+        android:progress="20"/>
+
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/stats"
         android:layout_above="@+id/pokemonListButton"
-        android:layout_below="@+id/teamImage"/>
+        android:layout_below="@+id/progressBar"/>
 
     <Button
         android:text="@string/check_your_pokemon"

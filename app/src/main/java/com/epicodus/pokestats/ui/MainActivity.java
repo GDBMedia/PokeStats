@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.pokemonListButton) Button mPokemonListButton;
     @Bind(R.id.stats)
     RecyclerView mRecyclerview;
+    @Bind(R.id.progressBar)
+    ProgressBar mProgressBar;
 
 
     @Override
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         ArrayList<Stat> stats = new ArrayList<Stat>();
                             stats.add(new Stat("Level", mUser.getLevel()+""));
-                            stats.add(new Stat("Pokestops Visited", mUser.getPoke_stop_visits()+""));
+                            stats.add(new Stat("Pokestops", mUser.getPoke_stop_visits()+""));
                             stats.add(new Stat("Pokeballs Thrown", mUser.getPokeballs_thrown()+""));
                             String catchPer = Double.toString(mUser.getPokemons_captured()/(double)mUser.getPokemons_encountered()*100);
                             int clength = catchPer.length();
@@ -105,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             stats.add(new Stat("Battle Win %", battleWinPer.substring(0,blength)+"%"));
                             stats.add(new Stat("Pokedex Entries", mUser.getUnique_pokedex_entries()+""));
                             String kmWalked = Double.toString(mUser.getKm_walked());
-                        Log.d(TAG, "run: " + kmWalked);
                             int klength = kmWalked.length();
                             if(klength >= 4){
                                 klength = 4;
@@ -122,17 +127,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         switch(mUser.getTeam()){
                             case "Valor":
                                 mTeamImage.setImageResource(R.drawable.valor);
+                                mProgressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplication(), R.color.valor)));
                                 break;
                             case "Mystic":
                                 mTeamImage.setImageResource(R.drawable.mystic);
+                                mProgressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplication(), R.color.mystic)));
                                 break;
                             case "Instinct":
                                 mTeamImage.setImageResource(R.drawable.instinct);
+                                mProgressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplication(), R.color.instinct)));
                                 break;
                             default:
                                 mTeamImage.setImageResource(R.drawable.defaultimage);
+                                mProgressBar.setProgressTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplication(), R.color.noob)));
                                 break;
                         }
+
+                        Log.d(TAG, "exp: "+ mUser.getNext_level_xp() +"exp: "+ mUser.getPrev_level_xp() +"exp: "+ mUser.getExperience());
+
+                        mProgressBar.setMax(mUser.getNext_level_xp() - mUser.getPrev_level_xp());
+                        mProgressBar.setProgress(mUser.getExperience() - mUser.getPrev_level_xp());
+                        mProgressBar.setVisibility(View.VISIBLE);
+
                         mRecyclerview.setHasFixedSize(true);
                         mRecyclerview.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
                         mAdapter = new StatsAdapter(MainActivity.this, stats);

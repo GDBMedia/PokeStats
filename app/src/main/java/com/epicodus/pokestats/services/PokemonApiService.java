@@ -131,7 +131,7 @@ public class PokemonApiService {
                     int prestige_dropped_total = userJSON.optInt("prestige_dropped_total", 0);
                     int prev_level_xp = userJSON.optInt("prev_level_xp", 0);
                     int unique_pokedex_entries = userJSON.optInt("unique_pokedex_entries", 0);
-                    int km_walked = userJSON.optInt("km_walked", 0);
+                    double km_walked = userJSON.optDouble("km_walked", 0);
                     int level = userJSON.optInt("level", 0);
                     int experience = userJSON.optInt("experience", 0);
                     int poke_stop_visits = userJSON.optInt("poke_stop_visits", 0);

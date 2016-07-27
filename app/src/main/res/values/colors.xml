@@ -9,5 +9,12 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <color name="background">#F5F5F5</color>
+    <color name="instinct">#FBC02D</color>
+    <color name="valor">#DC2F2F</color>
+    <color name="mystic">#2979FF</color>
+    <color name="noob">#2E7D32</color>
+
+
+
 
 </resources>
