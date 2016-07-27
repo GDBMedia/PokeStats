@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.epicodus.pokestats.R;
@@ -41,6 +42,8 @@ public class PokemonGradingFragment extends Fragment {
     private StatsAdapter mAdapter;
     @Bind(R.id.stats)
     RecyclerView mRecyclerview;
+    @Bind(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     public static PokemonGradingFragment newInstance(Pokemon pokemon) {
         PokemonGradingFragment pokemonGradingFragment = new PokemonGradingFragment();
@@ -74,6 +77,8 @@ public class PokemonGradingFragment extends Fragment {
         pokeName.setText(name);
         pokeCp.setText("CP " + mPokemon.getCp());
         Picasso.with(getActivity()).load(mPokemon.getSprite()).into(pokeSprite);
+        mProgressBar.setMax(mPokemon.getStamina_max());
+        mProgressBar.setProgress(mPokemon.getStamina());
 
         ArrayList<Stat> stats = new ArrayList<>();
         stats.add(new Stat("Attack", mPokemon.getIndividual_attack()+""));

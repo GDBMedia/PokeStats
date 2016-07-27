@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             stats.add(new Stat("Battle Win %", battleWinPer.substring(0,blength)+"%"));
                             stats.add(new Stat("Pokedex Entries", mUser.getUnique_pokedex_entries()+""));
                             String kmWalked = Double.toString(mUser.getKm_walked());
+                        Log.d(TAG, "run: " + kmWalked);
                             int klength = kmWalked.length();
                             if(klength >= 4){
                                 klength = 4;

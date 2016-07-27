@@ -37,11 +37,22 @@
         android:textSize="25sp"
         android:padding="8dp"
         />
+    <ProgressBar
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/progressBar"
+        android:layout_below="@+id/name"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="20"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/stats"
-        android:layout_below="@+id/name"/>
+        android:layout_below="@+id/progressBar"/>
 
 </RelativeLayout>
