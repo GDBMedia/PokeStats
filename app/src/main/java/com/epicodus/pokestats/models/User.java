@@ -25,7 +25,7 @@ public class User {
     public int pokecoin;
     public int stardust;
     public int max_item;
-    public int creation_time;
+    public long creation_time;
     public int max_pokemon;
     public int revive_count;
     public int razz_count;
@@ -67,7 +67,7 @@ public class User {
 
 
     public User(String team, String username, int pokecoin,
-                int stardust, int max_item, int creation_time, int max_pokemon, int revive_count, int razz_count,
+                int stardust, int max_item, long creation_time, int max_pokemon, int revive_count, int razz_count,
                 int pokemons_encountered, int pokemon_deployed, int battle_attack_total, int next_level_xp, int battle_attack_won,
                 int prestige_raised_total, int pokeballs_thrown, int eggs_hatched, int prestige_dropped_total, int prev_level_xp,
                 int unique_pokedex_entries, double km_walked, int level, int experience, int poke_stop_visits, int evolutions, int pokeball_count,
@@ -138,7 +138,7 @@ public class User {
         return max_item;
     }
 
-    public int getCreation_time() {
+    public long getCreation_time() {
         return creation_time;
     }
 
@@ -247,6 +247,13 @@ public class User {
     }
     public int getPokemons_captured() {
         return pokemons_captured;
+    }
+    public int getUltraball_count() {
+        return ultraball_count;
+    }
+
+    public int getMasterball_count() {
+        return masterball_count;
     }
 
     @Exclude

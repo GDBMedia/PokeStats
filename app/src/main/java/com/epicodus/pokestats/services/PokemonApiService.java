@@ -99,7 +99,7 @@ public class PokemonApiService {
                     int pokecoin = userJSON.optInt("pokecoin", 0);
                     int stardust = userJSON.optInt("stardust", 0);
                     int max_item = userJSON.getInt("max_item");
-                    int creation_time = userJSON.getInt("creation_time");
+                    long creation_time = userJSON.getLong("creation_time");
                     int teamnum = userJSON.optInt("team", 100);
                     String team = "";
                     switch(teamnum){

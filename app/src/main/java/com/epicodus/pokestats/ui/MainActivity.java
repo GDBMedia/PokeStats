@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,6 +34,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView mRecyclerview;
     @Bind(R.id.progressBar)
     ProgressBar mProgressBar;
+    @Bind(R.id.swipeContainer)
+    SwipeRefreshLayout swipeContainer;
 
 
     @Override
@@ -71,6 +75,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String json = mSharedPreferences.getString("currentUser", null);
         mCurrentUser = gson.fromJson(json, User.class);
+
+        mRecyclerview.setHasFixedSize(true);
+        mRecyclerview.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(MainActivity.this, R.dimen.activity_horizontal_margin);
+        mRecyclerview.addItemDecoration(itemDecoration);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getUser();
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         getUser();
 
     }
@@ -91,11 +111,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Date date = new Date();
+                        long currenttime = date.getTime();
+                        double diff = currenttime - mUser.getCreation_time();
+                        int diff_in_days = (int) (diff / (24*60*60*10*10*10));
+                        Log.d(TAG, "run: " + diff_in_days);
 
-                        ArrayList<Stat> stats = new ArrayList<Stat>();
+                        ArrayList<Stat> stats = new ArrayList();
                             stats.add(new Stat("Level", mUser.getLevel()+""));
                             stats.add(new Stat("Pokestops", mUser.getPoke_stop_visits()+""));
+                            stats.add(new Stat("Pokestops Per Day", mUser.getPoke_stop_visits()/diff_in_days+""));
                             stats.add(new Stat("Pokeballs Thrown", mUser.getPokeballs_thrown()+""));
+                            stats.add(new Stat("Pokemon Caught", mUser.getPokemons_captured()+""));
+                            stats.add(new Stat("Pokemon Per Day", mUser.getPokemons_captured()/diff_in_days+""));
                             String catchPer = Double.toString(mUser.getPokemons_captured()/(double)mUser.getPokemons_encountered()*100);
                             int clength = catchPer.length();
                             if(clength >=4){
@@ -115,10 +143,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if(klength >= 4){
                                 klength = 4;
                             }
+
+                            String kmpdWalked = Double.toString(mUser.getKm_walked()/diff_in_days);
+                            int kplength = kmpdWalked.length();
+                            if(kplength >= 4){
+                                kplength = 4;
+                            }
                             stats.add(new Stat("KM Walked", kmWalked.substring(0,klength)));
+                            stats.add(new Stat("KM Per Day", kmpdWalked.substring(0,kplength)));
                             stats.add(new Stat("Evolutions", mUser.getEvolutions()+""));
                             stats.add(new Stat("Eggs", mUser.getEgg_count()+""));
                             stats.add(new Stat("Pokemon", mUser.getPokemon_count()+""));
+                            stats.add(new Stat("Stardust", mUser.getStardust()+""));
+                            stats.add(new Stat("Pokecoin", mUser.getPokecoin()+""));
+                            stats.add(new Stat("Eggs Hatched", mUser.getEggs_hatched()+""));
+                            stats.add(new Stat("Pokeballs", mUser.getPokeball_count()+""));
+                            stats.add(new Stat("Greatballs", mUser.getGreatball_count()+""));
+                            stats.add(new Stat("Ultraballs", mUser.getUltraball_count()+""));
+                            stats.add(new Stat("Masterballs", mUser.getMasterball_count()+""));
+                            stats.add(new Stat("Razzberies", mUser.getRazz_count()+""));
+                            stats.add(new Stat("Revives", mUser.getRevive_count()+""));
+
+
+
+
+
 
 
 
@@ -148,14 +197,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mProgressBar.setMax(mUser.getNext_level_xp() - mUser.getPrev_level_xp());
                         mProgressBar.setProgress(mUser.getExperience() - mUser.getPrev_level_xp());
                         mProgressBar.setVisibility(View.VISIBLE);
-
-                        mRecyclerview.setHasFixedSize(true);
-                        mRecyclerview.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
                         mAdapter = new StatsAdapter(MainActivity.this, stats);
-                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(MainActivity.this, R.dimen.activity_horizontal_margin);
-                        mRecyclerview.addItemDecoration(itemDecoration);
                         mRecyclerview.setAdapter(mAdapter);
                         mAuthProgressDialog.dismiss();
+                        swipeContainer.setRefreshing(false);
 
                     }
                 });

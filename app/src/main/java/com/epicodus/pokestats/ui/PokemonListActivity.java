@@ -3,12 +3,19 @@ package com.epicodus.pokestats.ui;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
@@ -39,6 +46,8 @@ public class PokemonListActivity extends AppCompatActivity {
     private PokemonListAdapter mAdapter;
 
     @Bind(R.id.allPokemonlistView) RecyclerView mRecyclerview;
+    @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
+    @Bind(R.id.error) TextView mError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +61,25 @@ public class PokemonListActivity extends AppCompatActivity {
         mEditor = mSharedPreferences.edit();
         createAuthProgressDialog();
 
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(PokemonListActivity.this, R.dimen.activity_horizontal_margin);
+        mRecyclerview.addItemDecoration(itemDecoration);
+        mRecyclerview.setHasFixedSize(true);
+        mRecyclerview.setLayoutManager(new GridLayoutManager(PokemonListActivity.this, 2));
+
         String json = mSharedPreferences.getString("currentUser", null);
         mCurrentUser = gson.fromJson(json, User.class);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPokemon();
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         getPokemon();
 
     }
@@ -79,24 +105,29 @@ public class PokemonListActivity extends AppCompatActivity {
                 PokemonListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        listPokemon(mPokemons);
 
-                        for(Pokemon pokemon : mPokemons){
-                            Log.d(TAG, "run: " + pokemon.getName());
-                        }
-                        mRecyclerview.setHasFixedSize(true);
-                        mRecyclerview.setLayoutManager(new GridLayoutManager(PokemonListActivity.this, 2));
-                        mAdapter = new PokemonListAdapter(PokemonListActivity.this, mPokemons);
-                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(PokemonListActivity.this, R.dimen.activity_horizontal_margin);
-                        mRecyclerview.addItemDecoration(itemDecoration);
-                        mRecyclerview.setAdapter(mAdapter);
 
                         mAuthProgressDialog.dismiss();
+                        swipeContainer.setRefreshing(false);
 
                     }
                 });
             }
         });
     }
+
+    private void listPokemon(ArrayList<Pokemon> pokemons) {
+        mError.setVisibility(View.GONE);
+        if(pokemons.size() == 0){
+            mError.setVisibility(View.VISIBLE);
+        }
+            mAdapter = new PokemonListAdapter(PokemonListActivity.this, pokemons);
+            mRecyclerview.setAdapter(mAdapter);
+
+
+    }
+
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle("Loading...");
@@ -114,4 +145,51 @@ public class PokemonListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchPokemon(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d(TAG, "onQueryTextChange: " + newText);
+                searchPokemon(newText);
+                return false;
+            }
+
+        });
+
+        return true;
+    }
+
+    private void searchPokemon(String query) {
+        ArrayList<Pokemon> newPokemon = new ArrayList<>();
+        for(Pokemon pokemon : mPokemons){
+            if(pokemon.getName().toLowerCase().contains(query.toLowerCase())){
+                newPokemon.add(pokemon);
+            }
+        }
+        Collections.sort(newPokemon, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+            }
+        });
+        listPokemon(newPokemon);
+    }
+
 }
