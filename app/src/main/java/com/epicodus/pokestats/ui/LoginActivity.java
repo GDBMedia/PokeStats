@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
@@ -74,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+
                 final User[] currentUser = {null};
                 if (user != null) {
                     mAuthProgressDialog.show();
@@ -83,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     // Get user value
                                     currentUser[0] = dataSnapshot.getValue(User.class);
+
                                     Gson gson = new Gson();
                                     String json = gson.toJson(currentUser[0]);
                                     mEditor.putString("currentUser", json).apply();

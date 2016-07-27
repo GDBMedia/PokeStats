@@ -30,6 +30,7 @@ public class User {
     public int revive_count;
     public int razz_count;
     public int pokemons_encountered;
+    public int pokemons_captured;
     public int pokemon_deployed;
     public int battle_attack_total;
     public int next_level_xp;
@@ -47,6 +48,8 @@ public class User {
     public int evolutions;
     public int pokeball_count;
     public int greatball_count;
+    public int ultraball_count;
+    public int masterball_count;
     public int potion_count;
     public int sup_potion_count;
     public int hyp_potion_count;
@@ -61,12 +64,15 @@ public class User {
         this.googlePassword = googlePassword;
     }
 
+
+
     public User(String team, String username, int pokecoin,
                 int stardust, int max_item, int creation_time, int max_pokemon, int revive_count, int razz_count,
                 int pokemons_encountered, int pokemon_deployed, int battle_attack_total, int next_level_xp, int battle_attack_won,
                 int prestige_raised_total, int pokeballs_thrown, int eggs_hatched, int prestige_dropped_total, int prev_level_xp,
                 int unique_pokedex_entries, int km_walked, int level, int experience, int poke_stop_visits, int evolutions, int pokeball_count,
-                int greatball_count, int potion_count, int sup_potion_count, int hyp_potion_count, int egg_count, int pokemon_count) {
+                int greatball_count, int potion_count, int sup_potion_count, int hyp_potion_count, int egg_count, int pokemon_count,
+                int pokemons_captured, int ultraball_count, int masterball_count) {
         this.team = team;
         this.username = username;
         this.pokecoin = pokecoin;
@@ -99,6 +105,9 @@ public class User {
         this.hyp_potion_count = hyp_potion_count;
         this.egg_count = egg_count;
         this.pokemon_count = pokemon_count;
+        this.pokemons_captured = pokemons_captured;
+        this.ultraball_count = ultraball_count;
+        this.masterball_count = masterball_count;
     }
 
     public String getTeam() {
@@ -235,6 +244,9 @@ public class User {
 
     public int getPokemon_count() {
         return pokemon_count;
+    }
+    public int getPokemons_captured() {
+        return pokemons_captured;
     }
 
     @Exclude
