@@ -84,7 +84,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
             Intent intent = new Intent(v.getContext(), PokemonGradingPageActivity.class);
-            intent.putExtra("position", itemPosition);
+            intent.putExtra("position", itemPosition + "");
             intent.putExtra("pokemons", Parcels.wrap(mPokemonArrayList));
 
             mContext.startActivity(intent);

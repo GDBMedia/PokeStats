@@ -1,13 +1,20 @@
 package com.epicodus.pokestats.ui;
 
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.epicodus.pokestats.R;
+import com.epicodus.pokestats.adapters.PokemonPagerAdapter;
 import com.epicodus.pokestats.models.Pokemon;
+import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -15,23 +22,27 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PokemonGradingPageActivity extends AppCompatActivity {
-    public final String TAG = this.getClass().getSimpleName();
+
+    @Bind(R.id.viewPager) ViewPager mViewPager;
+    private PokemonPagerAdapter mPokemonPagerAdapter;
+    ArrayList<Pokemon> mPokemons = new ArrayList<>();
 
 
-    @Bind(R.id.name) TextView pokename;
-    private ArrayList<Pokemon> mPokemonArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemon_grading_page);
-        ButterKnife.bind(this);
-        if (getIntent().getExtras() != null) {
-            mPokemonArrayList = getIntent().getExtras().getParcelable("pokemons");
-            Log.d(TAG, "onCreate: "+ mPokemonArrayList.getClass());
-            Log.d(TAG, "onCreate: "+mPokemonArrayList.get(Integer.parseInt(getIntent().getStringExtra("position"))));
 
-        }
+        ButterKnife.bind(this);
+
+        mPokemons = Parcels.unwrap(getIntent().getParcelableExtra("pokemons"));
+        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
+
+        mPokemonPagerAdapter = new PokemonPagerAdapter(getSupportFragmentManager(), mPokemons);
+        mViewPager.setAdapter(mPokemonPagerAdapter);
+        mViewPager.setCurrentItem(startingPosition);
+
 
     }
     @Override
