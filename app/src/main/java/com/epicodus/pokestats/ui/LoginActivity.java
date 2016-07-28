@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 final User[] currentUser = {null};
                 if (user != null) {
                     mAuthProgressDialog.show();
-                    mDatabase.child("users").child(user.getUid()).addListenerForSingleValueEvent(
+                    mDatabase.child(Constants.USERS).child(user.getUid()).addListenerForSingleValueEvent(
                             new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     Gson gson = new Gson();
                                     String json = gson.toJson(currentUser[0]);
-                                    mEditor.putString("currentUser", json).apply();
+                                    mEditor.putString(Constants.CURRENT_USER, json).apply();
 
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -114,8 +115,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setTitle(getString(R.string.loading));
+        mAuthProgressDialog.setMessage(getString(R.string.auth));
         mAuthProgressDialog.setCancelable(false);
     }
 
@@ -135,11 +136,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = mEmailEditText.getText().toString().trim();
         String password = mPasswordEditText.getText().toString().trim();
         if (email.equals("")) {
-            mEmailEditText.setError("Please enter your email");
+            mEmailEditText.setError(getString(R.string.enter_email));
             return;
         }
         if (password.equals("")) {
-            mPasswordEditText.setError("Password cannot be blank");
+            mPasswordEditText.setError(getString(R.string.password_not_blank));
             return;
         }
         mAuthProgressDialog.show();
@@ -152,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

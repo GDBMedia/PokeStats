@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
 import com.epicodus.pokestats.adapters.PokemonListAdapter;
@@ -36,7 +37,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class PokemonListActivity extends AppCompatActivity {
+public class PokemonListActivity extends AppCompatActivity{
     public final String TAG = this.getClass().getSimpleName();
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -66,7 +67,7 @@ public class PokemonListActivity extends AppCompatActivity {
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new GridLayoutManager(PokemonListActivity.this, 2));
 
-        String json = mSharedPreferences.getString("currentUser", null);
+        String json = mSharedPreferences.getString(Constants.CURRENT_USER, null);
         mCurrentUser = gson.fromJson(json, User.class);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -130,8 +131,8 @@ public class PokemonListActivity extends AppCompatActivity {
 
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Getting Pokemon Data... Please Don't Sue still...");
+        mAuthProgressDialog.setTitle(getString(R.string.loading));
+        mAuthProgressDialog.setMessage(getString(R.string.dont_sue));
         mAuthProgressDialog.setCancelable(false);
     }
     @Override
@@ -141,10 +142,59 @@ public class PokemonListActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.item1:
+                sortByIv(mPokemons);
+                return true;
+            case R.id.item2:
+                sortByCp(mPokemons);
+                return true;
+            case R.id.item3:
+                sortByTime(mPokemons);
+                return true;
+            case R.id.item4:
+                sortByNum(mPokemons);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void sortByNum(ArrayList<Pokemon> pokemons) {
+        Collections.sort(pokemons, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return (p1.getPokemon_id()) - (p2.getPokemon_id());
+            }
+        });
+        listPokemon(pokemons);
+    }
+
+    private void sortByTime(ArrayList<Pokemon> pokemons) {
+        Collections.sort(pokemons, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return Double.compare(p2.getCreation_time_ms(), p1.getCreation_time_ms());
+            }
+        });
+        listPokemon(pokemons);
+    }
+
+    private void sortByCp(ArrayList<Pokemon> pokemons) {
+        Collections.sort(pokemons, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return (p2.getCp()) - (p1.getCp());
+            }
+        });
+        listPokemon(pokemons);
+    }
+
+    private void sortByIv(ArrayList<Pokemon> pokemons) {
+        Collections.sort(pokemons, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+            }
+        });
+        listPokemon(pokemons);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -184,12 +234,6 @@ public class PokemonListActivity extends AppCompatActivity {
                 newPokemon.add(pokemon);
             }
         }
-        Collections.sort(newPokemon, new Comparator<Pokemon>() {
-            @Override public int compare(Pokemon p1, Pokemon p2) {
-                return (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
-            }
-        });
         listPokemon(newPokemon);
     }
-
 }

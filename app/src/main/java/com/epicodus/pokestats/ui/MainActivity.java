@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
 import com.epicodus.pokestats.adapters.PokemonListAdapter;
@@ -73,12 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEditor = mSharedPreferences.edit();
         createAuthProgressDialog();
 
-        String json = mSharedPreferences.getString("currentUser", null);
+        String json = mSharedPreferences.getString(Constants.CURRENT_USER, null);
         mCurrentUser = gson.fromJson(json, User.class);
 
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(MainActivity.this, R.dimen.activity_horizontal_margin);
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(MainActivity.this, R.dimen.newmarg);
         mRecyclerview.addItemDecoration(itemDecoration);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -118,26 +119,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Log.d(TAG, "run: " + diff_in_days);
 
                         ArrayList<Stat> stats = new ArrayList();
-                            stats.add(new Stat("Level", mUser.getLevel()+""));
-                            stats.add(new Stat("Pokestops", mUser.getPoke_stop_visits()+""));
-                            stats.add(new Stat("Pokestops Per Day", mUser.getPoke_stop_visits()/diff_in_days+""));
-                            stats.add(new Stat("Pokeballs Thrown", mUser.getPokeballs_thrown()+""));
-                            stats.add(new Stat("Pokemon Caught", mUser.getPokemons_captured()+""));
-                            stats.add(new Stat("Pokemon Per Day", mUser.getPokemons_captured()/diff_in_days+""));
+                            stats.add(new Stat(getString(R.string.level), mUser.getLevel()+""));
+                            stats.add(new Stat(getString(R.string.pokestops), mUser.getPoke_stop_visits()+""));
+                            stats.add(new Stat(getString(R.string.avg_pokestops), mUser.getPoke_stop_visits()/diff_in_days+""));
+                            stats.add(new Stat(getString(R.string.pokeballs_thrown), mUser.getPokeballs_thrown()+""));
+                            stats.add(new Stat(getString(R.string.pokemon_caught), mUser.getPokemons_captured()+""));
+                            stats.add(new Stat(getString(R.string.avg_pokemon), mUser.getPokemons_captured()/diff_in_days+""));
                             String catchPer = Double.toString(mUser.getPokemons_captured()/(double)mUser.getPokemons_encountered()*100);
                             int clength = catchPer.length();
                             if(clength >=4){
                                 clength = 4;
                             }
-                            stats.add(new Stat("Catch %", catchPer.substring(0,clength)+"%"));
-                            stats.add(new Stat("Gym's Captured", mUser.getPokemon_deployed()+""));
+                            stats.add(new Stat(getString(R.string.catch_per), catchPer.substring(0,clength)+"%"));
+                            stats.add(new Stat(getString(R.string.gyms_caped), mUser.getPokemon_deployed()+""));
                             String battleWinPer = Double.toString(mUser.getBattle_attack_won()/(double)mUser.getBattle_attack_total()*100);
                             int blength = battleWinPer.length();
                             if(blength >=4){
                                 blength = 4;
                             }
-                            stats.add(new Stat("Battle Win %", battleWinPer.substring(0,blength)+"%"));
-                            stats.add(new Stat("Pokedex Entries", mUser.getUnique_pokedex_entries()+""));
+                            stats.add(new Stat(getString(R.string.win_per), battleWinPer.substring(0,blength)+"%"));
+                            stats.add(new Stat(getString(R.string.pokedex_ent), mUser.getUnique_pokedex_entries()+""));
                             String kmWalked = Double.toString(mUser.getKm_walked());
                             int klength = kmWalked.length();
                             if(klength >= 4){
@@ -149,20 +150,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if(kplength >= 4){
                                 kplength = 4;
                             }
-                            stats.add(new Stat("KM Walked", kmWalked.substring(0,klength)));
-                            stats.add(new Stat("KM Per Day", kmpdWalked.substring(0,kplength)));
-                            stats.add(new Stat("Evolutions", mUser.getEvolutions()+""));
-                            stats.add(new Stat("Eggs", mUser.getEgg_count()+""));
-                            stats.add(new Stat("Pokemon", mUser.getPokemon_count()+""));
-                            stats.add(new Stat("Stardust", mUser.getStardust()+""));
-                            stats.add(new Stat("Pokecoin", mUser.getPokecoin()+""));
-                            stats.add(new Stat("Eggs Hatched", mUser.getEggs_hatched()+""));
-                            stats.add(new Stat("Pokeballs", mUser.getPokeball_count()+""));
-                            stats.add(new Stat("Greatballs", mUser.getGreatball_count()+""));
-                            stats.add(new Stat("Ultraballs", mUser.getUltraball_count()+""));
-                            stats.add(new Stat("Masterballs", mUser.getMasterball_count()+""));
-                            stats.add(new Stat("Razzberies", mUser.getRazz_count()+""));
-                            stats.add(new Stat("Revives", mUser.getRevive_count()+""));
+                            stats.add(new Stat(getString(R.string.km_walked), kmWalked.substring(0,klength)));
+                            stats.add(new Stat(getString(R.string.avg_km), kmpdWalked.substring(0,kplength)));
+                            stats.add(new Stat(getString(R.string.evo), mUser.getEvolutions()+""));
+                            stats.add(new Stat(getString(R.string.eggs), mUser.getEgg_count()+""));
+                            stats.add(new Stat(getString(R.string.pokemon), mUser.getPokemon_count()+""));
+                            stats.add(new Stat(getString(R.string.startdust), mUser.getStardust()+""));
+                            stats.add(new Stat(getString(R.string.pokecoin), mUser.getPokecoin()+""));
+                            stats.add(new Stat(getString(R.string.eggs_hatched), mUser.getEggs_hatched()+""));
+                            stats.add(new Stat(getString(R.string.pokeballs), mUser.getPokeball_count()+""));
+                            stats.add(new Stat(getString(R.string.greatballs), mUser.getGreatball_count()+""));
+                            stats.add(new Stat(getString(R.string.ultraballs), mUser.getUltraball_count()+""));
+                            stats.add(new Stat(getString(R.string.masterballs), mUser.getMasterball_count()+""));
+                            stats.add(new Stat(getString(R.string.razz), mUser.getRazz_count()+""));
+                            stats.add(new Stat(getString(R.string.revive), mUser.getRevive_count()+""));
 
                         Log.d(TAG, "run: " + mUser.getUsername());
                         getSupportActionBar().setTitle(mUser.getUsername());
@@ -227,8 +228,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Getting User Data... Please Don't Sue...");
+        mAuthProgressDialog.setTitle(getString(R.string.loading));
+        mAuthProgressDialog.setMessage(getString(R.string.get_user_data));
         mAuthProgressDialog.setCancelable(false);
     }
 

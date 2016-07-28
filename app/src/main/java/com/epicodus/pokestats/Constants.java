@@ -13,5 +13,11 @@ public class Constants {
     public static final String USERNAME_PARAM = "u";
     public static final String PASSWORD_PARAM = "p";
     public static final String LOCATION_PARAM = "l";
+    public static final String CURRENT_USER = "currentUser";
+    public static final String USERS = "users";
+    public static final String POKEMON = "pokemon";
+    public static final String POKEMONS = "pokemons";
+    public static final String POSITION = "position";
+
 
 }

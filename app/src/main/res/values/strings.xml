@@ -1,8 +1,52 @@
 <resources>
     <string name="app_name">PokeStats</string>
     <string name="check_your_pokemon">Check Your Pokemon</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_pokemon_found">No Pokemon Found</string>
+    <string name="search">Search</string>
+    <string name="sort_by_iv">Sort by IV</string>
+    <string name="sort_cp">Sort CP</string>
+    <string name="sort_by_time">Sort by Time</string>
+    <string name="sort_by_cp">Sort by CP</string>
+    <string name="sort_by_number">Sort by Number</string>
+    <string name="km_walked">KM Walked</string>
+    <string name="level">Level</string>
+    <string name="pokestops">Pokestops</string>
+    <string name="avg_pokestops">Avg Pokestops Per Day</string>
+    <string name="pokeballs_thrown">Pokeballs Thrown</string>
+    <string name="pokemon_caught">Pokemon Caught</string>
+    <string name="avg_pokemon">Avg Pokemon Per Day</string>
+    <string name="catch_per">Catch %</string>
+    <string name="gyms_caped">Gym\'s Captured</string>
+    <string name="win_per">Battle Win %</string>
+    <string name="pokedex_ent">Pokedex Entries</string>
+    <string name="avg_km">Avg KM Per Day</string>
+    <string name="evo">Evolutions</string>
+    <string name="eggs">Eggs</string>
+    <string name="pokemon">Pokemon</string>
+    <string name="startdust">Stardust</string>
+    <string name="pokecoin">Pokecoin</string>
+    <string name="eggs_hatched">Eggs Hatched</string>
+    <string name="pokeballs">Pokeballs</string>
+    <string name="greatballs">Greatballs</string>
+    <string name="ultraballs">Ultraballs</string>
+    <string name="masterballs">Masterballs</string>
+    <string name="razz">Razzberies</string>
+    <string name="revive">Revives</string>
+    <string name="loading">Loading…</string>
+    <string name="get_user_data">Getting User Data… Please Don\'t Sue…</string>
+    <string name="current_user">currentUser</string>
+    <string name="users">users</string>
+    <string name="auth">Authenticating with Firebase…</string>
+    <string name="enter_email">Please enter your email</string>
+    <string name="password_not_blank">Password cannot be blank</string>
+    <string name="auth_failed">Authentication failed.</string>
+    <string name="valid_email">Please enter a valid email address</string>
+    <string name="enter_name">Please enter your name</string>
+    <string name="pass_6">Please create a password containing at least 6 characters</string>
+    <string name="pass_not_match">Passwords do not match</string>
+    <string name="cp_s">"CP "</string>
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="stamina">Stamina</string>
+    <string name="dont_sue">Getting Pokemon Data… Please Don\'t Sue still…</string>
 </resources>

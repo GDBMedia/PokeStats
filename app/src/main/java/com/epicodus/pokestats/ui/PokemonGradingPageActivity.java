@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.PokemonPagerAdapter;
 import com.epicodus.pokestats.models.Pokemon;
@@ -36,8 +37,8 @@ public class PokemonGradingPageActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mPokemons = Parcels.unwrap(getIntent().getParcelableExtra("pokemons"));
-        int startingPosition = Integer.parseInt(getIntent().getStringExtra("position"));
+        mPokemons = Parcels.unwrap(getIntent().getParcelableExtra(Constants.POKEMONS));
+        int startingPosition = Integer.parseInt(getIntent().getStringExtra(Constants.POSITION));
 
         mPokemonPagerAdapter = new PokemonPagerAdapter(getSupportFragmentManager(), mPokemons);
         mViewPager.setAdapter(mPokemonPagerAdapter);

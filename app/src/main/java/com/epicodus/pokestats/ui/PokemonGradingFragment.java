@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.adapters.ItemOffsetDecoration;
 import com.epicodus.pokestats.adapters.StatsAdapter;
@@ -48,7 +49,7 @@ public class PokemonGradingFragment extends Fragment {
     public static PokemonGradingFragment newInstance(Pokemon pokemon) {
         PokemonGradingFragment pokemonGradingFragment = new PokemonGradingFragment();
         Bundle args = new Bundle();
-        args.putParcelable("pokemon", Parcels.wrap(pokemon));
+        args.putParcelable(Constants.POKEMON, Parcels.wrap(pokemon));
         pokemonGradingFragment.setArguments(args);
         return pokemonGradingFragment;
     }
@@ -56,7 +57,7 @@ public class PokemonGradingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPokemon = Parcels.unwrap(getArguments().getParcelable("pokemon"));
+        mPokemon = Parcels.unwrap(getArguments().getParcelable(Constants.POKEMON));
     }
 
 
@@ -75,15 +76,15 @@ public class PokemonGradingFragment extends Fragment {
             name = name + " (" + mPokemon.getNickname()+ ")";
         }
         pokeName.setText(name);
-        pokeCp.setText("CP " + mPokemon.getCp());
+        pokeCp.setText(getActivity().getString(R.string.cp_s) + mPokemon.getCp());
         Picasso.with(getActivity()).load(mPokemon.getSprite()).into(pokeSprite);
         mProgressBar.setMax(mPokemon.getStamina_max());
         mProgressBar.setProgress(mPokemon.getStamina());
 
         ArrayList<Stat> stats = new ArrayList<>();
-        stats.add(new Stat("Attack", mPokemon.getIndividual_attack()+""));
-        stats.add(new Stat("Defense", mPokemon.getIndividual_defense()+""));
-        stats.add(new Stat("Stamina", mPokemon.getIndividual_stamina()+""));
+        stats.add(new Stat(getActivity().getString(R.string.attack), mPokemon.getIndividual_attack()+""));
+        stats.add(new Stat(getActivity().getString(R.string.defense), mPokemon.getIndividual_defense()+""));
+        stats.add(new Stat(getActivity().getString(R.string.stamina), mPokemon.getIndividual_stamina()+""));
 
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 3));

@@ -4,6 +4,27 @@
         android:id="@+id/action_search"
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        android:title="Search">
+        android:title="@string/search">
     </item>
+
+    <item
+        android:id="@+id/item1"
+        android:title="@string/sort_by_iv"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item2"
+        android:title="@string/sort_by_cp"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item3"
+        android:title="@string/sort_by_time"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item4"
+        android:title="@string/sort_by_number"
+        android:visible="true"
+        app:showAsAction="never" />
 </menu>

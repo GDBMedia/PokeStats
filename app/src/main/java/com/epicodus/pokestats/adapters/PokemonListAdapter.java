@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
 import com.epicodus.pokestats.models.Pokemon;
 import com.epicodus.pokestats.ui.PokemonGradingPageActivity;
@@ -75,7 +76,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
                 name = name + " (" + pokemon.getNickname()+ ")";
             }
             pokeName.setText(name);
-            pokeCp.setText("CP " + pokemon.getCp());
+            pokeCp.setText(mContext.getString(R.string.cp_s) + pokemon.getCp());
             Picasso.with(mContext).load(pokemon.getSprite()).into(pokeSprite);
 
         }
@@ -84,8 +85,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
             Intent intent = new Intent(v.getContext(), PokemonGradingPageActivity.class);
-            intent.putExtra("position", itemPosition + "");
-            intent.putExtra("pokemons", Parcels.wrap(mPokemonArrayList));
+            intent.putExtra(Constants.POSITION, itemPosition + "");
+            intent.putExtra(Constants.POKEMONS, Parcels.wrap(mPokemonArrayList));
 
             mContext.startActivity(intent);
         }

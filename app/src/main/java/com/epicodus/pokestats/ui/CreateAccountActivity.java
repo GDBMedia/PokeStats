@@ -72,8 +72,6 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
         createAuthProgressDialog();
-
-        Log.d(TAG, "anything: ");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
@@ -102,8 +100,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setTitle(getString(R.string.loading));
+        mAuthProgressDialog.setMessage(getString(R.string.auth));
         mAuthProgressDialog.setCancelable(false);
     }
 
@@ -130,7 +128,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
                             createFirebaseUserProfile(task.getResult().getUser());
                         } else {
-                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
+                            Toast.makeText(CreateAccountActivity.this, getString(R.string.auth_failed),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -147,7 +145,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 final User[] currentUser = {null};
 
                 if (user != null) {
-                    mDatabase.child("users").child(user.getUid()).addListenerForSingleValueEvent(
+                    mDatabase.child(Constants.USERS).child(user.getUid()).addListenerForSingleValueEvent(
                             new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -156,7 +154,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                                     if(currentUser[0] != null){
                                         Gson gson = new Gson();
                                         String json = gson.toJson(currentUser[0]);
-                                        mEditor.putString("currentUser", json).apply();
+                                        mEditor.putString(Constants.CURRENT_USER, json).apply();
                                         Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
 
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -231,7 +229,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
         if (!isGoodEmail) {
             mEmailEditText.requestFocus();
-            mEmailEditText.setError("Please enter a valid email address");
+            mEmailEditText.setError(getString(R.string.valid_email));
             return false;
         }
         return isGoodEmail;
@@ -240,7 +238,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private boolean isValidName(String name) {
         if (name.equals("")) {
             mNameEditText.requestFocus();
-            mNameEditText.setError("Please enter your name");
+            mNameEditText.setError(getString(R.string.enter_name));
             return false;
         }
         return true;
@@ -249,12 +247,12 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private boolean isValidPassword(String password, String confirmPassword) {
         if (password.length() < 6) {
             mPasswordEditText.requestFocus();
-            mPasswordEditText.setError("Please create a password containing at least 6 characters");
+            mPasswordEditText.setError(getString(R.string.pass_6));
 
             return false;
         } else if (!password.equals(confirmPassword)) {
             mPasswordEditText.requestFocus();
-            mPasswordEditText.setError("Passwords do not match");
+            mPasswordEditText.setError(getString(R.string.pass_not_match));
             return false;
         }
         return true;
