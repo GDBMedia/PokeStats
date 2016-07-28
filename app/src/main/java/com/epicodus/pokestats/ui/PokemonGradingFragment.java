@@ -85,6 +85,23 @@ public class PokemonGradingFragment extends Fragment {
         stats.add(new Stat(getActivity().getString(R.string.attack), mPokemon.getIndividual_attack()+""));
         stats.add(new Stat(getActivity().getString(R.string.defense), mPokemon.getIndividual_defense()+""));
         stats.add(new Stat(getActivity().getString(R.string.stamina), mPokemon.getIndividual_stamina()+""));
+        String battles = getActivity().getString(R.string.battle_default);
+        if(Integer.toString(mPokemon.getBattles_attacked()) != null){
+            battles = Integer.toString(mPokemon.getBattles_attacked());
+        }
+        stats.add(new Stat(getActivity().getString(R.string.battles), battles));
+        String weight = Double.toString(mPokemon.getWeight_kg());
+        int wlength = weight.length();
+        if(wlength >= 4){
+            wlength = 4;
+        }
+        String height = Double.toString(mPokemon.getHeight_m());
+        int hlength = height.length();
+        if(hlength >= 4){
+            hlength = 4;
+        }
+        stats.add(new Stat(getActivity().getString(R.string.height), weight.substring(0,wlength)));
+        stats.add(new Stat(getActivity().getString(R.string.weight), height.substring(0,hlength)));
 
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 3));

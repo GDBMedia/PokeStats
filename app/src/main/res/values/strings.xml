@@ -49,4 +49,8 @@
     <string name="defense">Defense</string>
     <string name="stamina">Stamina</string>
     <string name="dont_sue">Getting Pokemon Data… Please Don\'t Sue still…</string>
+    <string name="battle_default">0</string>
+    <string name="battles">Battles</string>
+    <string name="height">Height(m)</string>
+    <string name="weight">Weight(Kg)</string>
 </resources>

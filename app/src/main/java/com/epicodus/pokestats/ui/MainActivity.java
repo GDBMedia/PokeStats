@@ -1,12 +1,19 @@
 package com.epicodus.pokestats.ui;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.epicodus.pokestats.Constants;
 import com.epicodus.pokestats.R;
@@ -43,7 +51,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
     public final String TAG = this.getClass().getSimpleName();
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -51,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private User mUser;
     private ProgressDialog mAuthProgressDialog;
     private StatsAdapter mAdapter;
+    private final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
+    private String mLatitude;
+    private String mLongitude;
+    private String mLocation;
+    private String mOrigin;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
 
     @Bind(R.id.teamImage) ImageView mTeamImage;
     @Bind(R.id.pokemonListButton) Button mPokemonListButton;
@@ -68,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+
         mPokemonListButton.setOnClickListener(this);
         Gson gson = new Gson();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -85,21 +102,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getUser();
+                getUser(mLocation);
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        getUser();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, PERMISSION_ACCESS_COARSE_LOCATION);
+        }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
 
     }
 
-    private void getUser() {
+    private void getUser(String location) {
         mAuthProgressDialog.show();
         final PokemonApiService pokemonApiService = new PokemonApiService();
-        pokemonApiService.getData(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), "portland", 0, new Callback() {
+        pokemonApiService.getData(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), location, 0, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -236,6 +258,82 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(MainActivity.this, PokemonListActivity.class);
+        intent.putExtra(Constants.LOCATION, mLocation);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.UPDATE_LENGTH, Constants.UPDATE_DISTANCE, this);
+            try{
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                mLongitude = location.getLongitude()+"";
+                mLatitude = location.getLatitude()+"";
+                mLocation = mLatitude + "," + mLongitude;
+                getUser(mLocation);
+
+            }catch (NullPointerException e){
+                Log.d(TAG, "onStart: " +e);
+                Toast.makeText(this, "Can't Get Location", Toast.LENGTH_SHORT).show();
+            }
+
+            Log.d(TAG, "onStart: listening");
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "onStop: notListening");
+            locationManager.removeUpdates(this);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_ACCESS_COARSE_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // All good!
+                } else {
+                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        mLatitude = location.getLatitude()+"";
+        mLongitude = location.getLongitude()+"";
+
+
+
+        mLocation = mLatitude + "," + mLongitude;
+
+        Toast.makeText(this, mLocation, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onLocationChanged: " + mLatitude + "," + mLongitude);
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 }
