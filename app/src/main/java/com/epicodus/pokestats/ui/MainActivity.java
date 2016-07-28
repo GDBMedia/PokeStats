@@ -164,13 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             stats.add(new Stat("Razzberies", mUser.getRazz_count()+""));
                             stats.add(new Stat("Revives", mUser.getRevive_count()+""));
 
-
-
-
-
-
-
-
                         Log.d(TAG, "run: " + mUser.getUsername());
                         getSupportActionBar().setTitle(mUser.getUsername());
                         switch(mUser.getTeam()){
