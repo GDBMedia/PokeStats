@@ -210,8 +210,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         Log.d(TAG, "exp: "+ mUser.getNext_level_xp() +"exp: "+ mUser.getPrev_level_xp() +"exp: "+ mUser.getExperience());
 
-                        mProgressBar.setMax(mUser.getNext_level_xp() - mUser.getPrev_level_xp());
-                        mProgressBar.setProgress(mUser.getExperience() - mUser.getPrev_level_xp());
+                        mProgressBar.setMax(mUser.getNext_level_xp() - Constants.LEVELS_XP.get(mUser.getLevel()));
+                        Log.d(TAG, "run: " +Constants.LEVELS_XP.get(mUser.getLevel()) +"");
+                        Log.d(TAG, "run: " + mUser.getExperience()/(double)mUser.getNext_level_xp());
+                        mProgressBar.setProgress(mUser.getExperience() - Constants.LEVELS_XP.get(mUser.getLevel()));
                         mProgressBar.setVisibility(View.VISIBLE);
                         mAdapter = new StatsAdapter(MainActivity.this, stats);
                         mRecyclerview.setAdapter(mAdapter);
@@ -316,8 +318,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mLocation = mLatitude + "," + mLongitude;
-
-        Toast.makeText(this, mLocation, Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onLocationChanged: " + mLatitude + "," + mLongitude);
 
     }

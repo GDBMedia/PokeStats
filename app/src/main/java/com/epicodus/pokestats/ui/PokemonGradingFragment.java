@@ -85,15 +85,18 @@ public class PokemonGradingFragment extends Fragment {
         stats.add(new Stat(getActivity().getString(R.string.attack), mPokemon.getIndividual_attack()+""));
         stats.add(new Stat(getActivity().getString(R.string.defense), mPokemon.getIndividual_defense()+""));
         stats.add(new Stat(getActivity().getString(R.string.stamina), mPokemon.getIndividual_stamina()+""));
-        if(mPokemon.getNext_evo_cp() > 0){
-            stats.add(new Stat(mPokemon.getNext_evo_name(), getActivity().getString(R.string.cp_s) + Integer.toString((int)mPokemon.getNext_evo_cp())));
-
-        }
-        if(mPokemon.getNext_eevo_name().size() != 0){
-            for(int i = 0; i < mPokemon.getNext_eevo_name().size(); i++){
-                stats.add(new Stat(mPokemon.getNext_eevo_name().get(i), getActivity().getString(R.string.cp_s) + Integer.toString(mPokemon.getNext_eevo_cp().get(i).intValue())));
+        if(!mPokemon.getNext_evo_name().get(0).equals("N/A")){
+            for(int i = 0; i < mPokemon.getNext_evo_name().size(); i++){
+                stats.add(new Stat(mPokemon.getNext_evo_name().get(i), getActivity().getString(R.string.cp_s) + Integer.toString(mPokemon.getNext_evo_cp().get(i).intValue())));
             }
         }
+        stats.add(new Stat(getActivity().getString(R.string.cp_multiplier), (mPokemon.getCp_multiplier()+mPokemon.getAdditional_cp_multiplier()+"").substring(0,4)));
+        stats.add(new Stat(getActivity().getString(R.string.upgrades), mPokemon.getNum_upgrades()+""));
+        stats.add(new Stat(getActivity().getString(R.string.type_1), mPokemon.getType1()));
+        if(!mPokemon.getType2().equals("None")){
+            stats.add(new Stat(getActivity().getString(R.string.type_2), mPokemon.getType2()));
+        }
+
         String battles = getActivity().getString(R.string.battle_default);
         if(Integer.toString(mPokemon.getBattles_attacked()) != null){
             battles = Integer.toString(mPokemon.getBattles_attacked());
