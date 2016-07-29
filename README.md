@@ -22,7 +22,7 @@ No known bugs.
 
 ## Support and contact details
 
-If user encounters issues or problems please contact Cory Franks at: franksco39@gmail.com, Garrett Biernat: laker77@gmail.com, Darius Capizza: dariuscapizza@gmail.com
+If user encounters issues or problems please contact Cory Franks at: franksco39@gmail.com, Garrett Biernat: laker77@gmail.com, Darius Capizza: dariuscapizza@gmail.com, Tommy Jones: tommyinseason@yahoo.com, Josh Logan: joshlogan32323@gmail.com
 
 ## Technologies Used
 
