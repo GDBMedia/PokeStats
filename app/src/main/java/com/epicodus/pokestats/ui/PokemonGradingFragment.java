@@ -85,6 +85,15 @@ public class PokemonGradingFragment extends Fragment {
         stats.add(new Stat(getActivity().getString(R.string.attack), mPokemon.getIndividual_attack()+""));
         stats.add(new Stat(getActivity().getString(R.string.defense), mPokemon.getIndividual_defense()+""));
         stats.add(new Stat(getActivity().getString(R.string.stamina), mPokemon.getIndividual_stamina()+""));
+        if(mPokemon.getNext_evo_cp() > 0){
+            stats.add(new Stat(mPokemon.getNext_evo_name(), getActivity().getString(R.string.cp_s) + Integer.toString((int)mPokemon.getNext_evo_cp())));
+
+        }
+        if(mPokemon.getNext_eevo_name().size() != 0){
+            for(int i = 0; i < mPokemon.getNext_eevo_name().size(); i++){
+                stats.add(new Stat(mPokemon.getNext_eevo_name().get(i), getActivity().getString(R.string.cp_s) + Integer.toString(mPokemon.getNext_eevo_cp().get(i).intValue())));
+            }
+        }
         String battles = getActivity().getString(R.string.battle_default);
         if(Integer.toString(mPokemon.getBattles_attacked()) != null){
             battles = Integer.toString(mPokemon.getBattles_attacked());
@@ -100,8 +109,10 @@ public class PokemonGradingFragment extends Fragment {
         if(hlength >= 4){
             hlength = 4;
         }
-        stats.add(new Stat(getActivity().getString(R.string.height), weight.substring(0,wlength)));
-        stats.add(new Stat(getActivity().getString(R.string.weight), height.substring(0,hlength)));
+        stats.add(new Stat(getActivity().getString(R.string.height), height.substring(0,wlength)));
+        stats.add(new Stat(getActivity().getString(R.string.weight), weight.substring(0,hlength)));
+
+
 
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(), 3));

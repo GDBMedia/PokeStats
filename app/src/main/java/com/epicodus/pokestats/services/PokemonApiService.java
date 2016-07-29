@@ -138,8 +138,8 @@ public class PokemonApiService {
                     int evolutions = userJSON.optInt("evolutions", 0);
                     int pokeball_count = userJSON.optInt("pokeball_count", 0);
                     int greatball_count = userJSON.optInt("greatball_count", 0);
-                    int ultraball_count = userJSON.optInt("ultraball_count", 0);
-                    int masterball_count = userJSON.optInt("masterball_count", 0);
+                    int ultraball_count = userJSON.optInt("ultra_count", 0);
+                    int masterball_count = userJSON.optInt("master_count", 0);
                     int potion_count = userJSON.optInt("potion_count", 0);
                     int sup_potion_count = userJSON.optInt("sup_potion_count", 0);
                     int hyp_potion_count = userJSON.optInt("hyp_potion_count", 0);
