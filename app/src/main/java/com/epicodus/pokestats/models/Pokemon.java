@@ -30,6 +30,7 @@ public class Pokemon {
     public double base_defense;
     public String type1;
     public String type2;
+    public int num_upgrades;
     public ArrayList<Double> next_evo_cp = new ArrayList<>();
     public ArrayList<String> next_evo_name = new ArrayList<>();
 
@@ -149,6 +150,10 @@ public class Pokemon {
     public double getAdditional_cp_multiplier() {
         return additional_cp_multiplier;
     }
+    public int getNum_upgrades() {
+        return num_upgrades;
+    }
+
 
 
 }

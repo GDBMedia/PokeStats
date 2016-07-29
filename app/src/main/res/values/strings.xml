@@ -54,4 +54,8 @@
     <string name="battles">Battles</string>
     <string name="height">Height(m)</string>
     <string name="weight">Weight(Kg)</string>
+    <string name="cp_multiplier">CP Multiplier</string>
+    <string name="upgrades">Upgrades</string>
+    <string name="type_1">Type 1</string>
+    <string name="type_2">Type 2</string>
 </resources>
