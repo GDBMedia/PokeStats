@@ -11,10 +11,10 @@
     <string name="km_walked">KM Walked</string>
     <string name="level">Level</string>
     <string name="pokestops">Pokestops</string>
-    <string name="avg_pokestops">Avg Pokestops Per Day</string>
+    <string name="avg_pokestops">Pokestops Per Day</string>
     <string name="pokeballs_thrown">Pokeballs Thrown</string>
     <string name="pokemon_caught">Pokemon Caught</string>
-    <string name="avg_pokemon">Avg Pokemon Per Day</string>
+    <string name="avg_pokemon">Pokemon Per Day</string>
     <string name="catch_per">Catch %</string>
     <string name="gyms_caped">Gym\'s Captured</string>
     <string name="win_per">Battle Win %</string>
@@ -50,4 +50,8 @@
     <string name="stamina">Stamina</string>
     <string name="dont_sue">Getting Pokemon Data… Please Don\'t Sue still…</string>
     <string name="sort_by_cpm">Sort By CPm</string>
+    <string name="battle_default">0</string>
+    <string name="battles">Battles</string>
+    <string name="height">Height(m)</string>
+    <string name="weight">Weight(Kg)</string>
 </resources>

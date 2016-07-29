@@ -45,6 +45,7 @@ public class PokemonListActivity extends AppCompatActivity{
     private ArrayList<Pokemon> mPokemons = new ArrayList<>();
     private ProgressDialog mAuthProgressDialog;
     private PokemonListAdapter mAdapter;
+    private String mLocation;
 
     @Bind(R.id.allPokemonlistView) RecyclerView mRecyclerview;
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
@@ -62,6 +63,8 @@ public class PokemonListActivity extends AppCompatActivity{
         mEditor = mSharedPreferences.edit();
         createAuthProgressDialog();
 
+        mLocation = getIntent().getStringExtra(Constants.LOCATION);
+
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(PokemonListActivity.this, R.dimen.activity_horizontal_margin);
         mRecyclerview.addItemDecoration(itemDecoration);
         mRecyclerview.setHasFixedSize(true);
@@ -73,7 +76,7 @@ public class PokemonListActivity extends AppCompatActivity{
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPokemon();
+                getPokemon(mLocation);
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -81,14 +84,14 @@ public class PokemonListActivity extends AppCompatActivity{
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        getPokemon();
+        getPokemon(mLocation);
 
     }
 
-    private void getPokemon() {
+    private void getPokemon(String location) {
         mAuthProgressDialog.show();
         final PokemonApiService pokemonApiService = new PokemonApiService();
-        pokemonApiService.getData(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), "portland", 1, new Callback() {
+        pokemonApiService.getData(mCurrentUser.getGoogleUser(), mCurrentUser.getGooglePassword(), location, 1, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {

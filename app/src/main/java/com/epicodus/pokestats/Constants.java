@@ -18,6 +18,9 @@ public class Constants {
     public static final String POKEMON = "pokemon";
     public static final String POKEMONS = "pokemons";
     public static final String POSITION = "position";
+    public static final String LOCATION = "location";
+    public static final int UPDATE_LENGTH = 300000;
+    public static final int UPDATE_DISTANCE = 15;
 
 
 }
