@@ -13,6 +13,11 @@
         android:visible="true"
         app:showAsAction="never" />
     <item
+        android:id="@+id/item5"
+        android:title="@string/sort_by_cpm"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/item2"
         android:title="@string/sort_by_cp"
         android:visible="true"

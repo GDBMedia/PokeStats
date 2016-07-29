@@ -154,9 +154,21 @@ public class PokemonListActivity extends AppCompatActivity{
             case R.id.item4:
                 sortByNum(mPokemons);
                 return true;
+            case R.id.item5:
+                sortByCpm(mPokemons);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sortByCpm(ArrayList<Pokemon> pokemons) {
+        Collections.sort(pokemons, new Comparator<Pokemon>() {
+            @Override public int compare(Pokemon p1, Pokemon p2) {
+                return (p2.get)) - (p1.getPokemon_id());
+            }
+        });
+        listPokemon(pokemons);
     }
 
     private void sortByNum(ArrayList<Pokemon> pokemons) {
