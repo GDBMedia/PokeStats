@@ -30,10 +30,13 @@ public class Pokemon {
     public double base_defense;
     public String type1;
     public String type2;
-    public double next_evo_cp;
-    public ArrayList<Double> next_eevo_cp = new ArrayList<>();
-    public String next_evo_name;
-    public ArrayList<String> next_eevo_name = new ArrayList<>();
+    public ArrayList<Double> next_evo_cp = new ArrayList<>();
+    public ArrayList<String> next_evo_name = new ArrayList<>();
+
+
+    public double cp_multiplier;
+    public double additional_cp_multiplier;
+
 
     public Pokemon() {}
 
@@ -131,19 +134,21 @@ public class Pokemon {
         return type2;
     }
 
-    public double getNext_evo_cp() {
+    public ArrayList<Double>  getNext_evo_cp() {
         return next_evo_cp;
     }
 
-    public ArrayList<Double> getNext_eevo_cp() {
-        return next_eevo_cp;
-    }
-
-    public String getNext_evo_name() {
+    public ArrayList<String> getNext_evo_name() {
         return next_evo_name;
     }
 
-    public ArrayList<String> getNext_eevo_name() {
-        return next_eevo_name;
+    public double getCp_multiplier() {
+        return cp_multiplier;
     }
+
+    public double getAdditional_cp_multiplier() {
+        return additional_cp_multiplier;
+    }
+
+
 }

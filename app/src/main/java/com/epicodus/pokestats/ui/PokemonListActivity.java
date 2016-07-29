@@ -168,7 +168,7 @@ public class PokemonListActivity extends AppCompatActivity{
     private void sortByCpm(ArrayList<Pokemon> pokemons) {
         Collections.sort(pokemons, new Comparator<Pokemon>() {
             @Override public int compare(Pokemon p1, Pokemon p2) {
-                return (p2.get)) - (p1.getPokemon_id());
+                return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
             }
         });
         listPokemon(pokemons);
