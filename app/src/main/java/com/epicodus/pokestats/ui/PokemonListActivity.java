@@ -168,7 +168,15 @@ public class PokemonListActivity extends AppCompatActivity{
     private void sortByCpm(ArrayList<Pokemon> pokemons) {
         Collections.sort(pokemons, new Comparator<Pokemon>() {
             @Override public int compare(Pokemon p1, Pokemon p2) {
-                return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                int value1 = Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                if(value1 == 0){
+                    int value2 = (p2.getCp()) - (p1.getCp());
+                    if(value2 == 0){
+                        return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                    }
+                    return value2;
+                }
+                return value1;
             }
         });
         listPokemon(pokemons);
@@ -177,7 +185,19 @@ public class PokemonListActivity extends AppCompatActivity{
     private void sortByNum(ArrayList<Pokemon> pokemons) {
         Collections.sort(pokemons, new Comparator<Pokemon>() {
             @Override public int compare(Pokemon p1, Pokemon p2) {
-                return (p1.getPokemon_id()) - (p2.getPokemon_id());
+                int value1 = (p1.getPokemon_id()) - (p2.getPokemon_id());
+                if(value1 ==0){
+                    int value2 = (p2.getCp()) - (p1.getCp());
+                    if(value2 == 0){
+                        int value3 = (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+                        if(value3 == 0){
+                            return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                        }
+                        return value3;
+                    }
+                    return value2;
+                }
+                return value1;
             }
         });
         listPokemon(pokemons);
@@ -195,7 +215,15 @@ public class PokemonListActivity extends AppCompatActivity{
     private void sortByCp(ArrayList<Pokemon> pokemons) {
         Collections.sort(pokemons, new Comparator<Pokemon>() {
             @Override public int compare(Pokemon p1, Pokemon p2) {
-                return (p2.getCp()) - (p1.getCp());
+                int value1 = (p2.getCp()) - (p1.getCp());
+                if(value1  ==0){
+                    int value2 = (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+                    if(value2 ==0){
+                        return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                    }
+                    return value2;
+                }
+                return value1;
             }
         });
         listPokemon(pokemons);
@@ -204,7 +232,15 @@ public class PokemonListActivity extends AppCompatActivity{
     private void sortByIv(ArrayList<Pokemon> pokemons) {
         Collections.sort(pokemons, new Comparator<Pokemon>() {
             @Override public int compare(Pokemon p1, Pokemon p2) {
-                return (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+                int value1 = (p2.getIndividual_attack()+p2.getIndividual_defense()+p2.getIndividual_stamina()) - (p1.getIndividual_attack()+p1.getIndividual_defense()+p1.getIndividual_stamina());
+                if(value1 == 0){
+                    int value2 =(p2.getCp()) - (p1.getCp());
+                    if(value2 == 0){
+                        return Double.compare(p2.getCp_multiplier() + p2.getAdditional_cp_multiplier(), p1.getCp_multiplier() + p1.getAdditional_cp_multiplier());
+                    }
+                    return value2;
+                }
+                return value1;
             }
         });
         listPokemon(pokemons);
